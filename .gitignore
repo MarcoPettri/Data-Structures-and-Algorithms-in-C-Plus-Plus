@@ -15,7 +15,6 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
 ### CMake ###
 CMakeLists.txt.user
 CMakeCache.txt
@@ -28,7 +27,7 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-
+build/
 CMakeLists.txt
 CMakePresets.json
 
