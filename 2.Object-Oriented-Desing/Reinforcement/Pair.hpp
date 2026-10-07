@@ -30,7 +30,8 @@ public:
   ~Pair() = default;                         // 1. destructor
   Pair(const Pair &other);                   // 2. copy constructor
   Pair(Pair &&other) noexcept(nothrow_move); // 3. move constructor
-  Pair &operator=(Pair other) noexcept(nothrow_swap); // 4+5. copy-and-swap (copy AND move assignment)
+  Pair &operator=(Pair other) noexcept(
+      nothrow_swap); // 4+5. copy-and-swap (copy AND move assignment)
 
   // Swap (member; the free swap below forwards to it)
   void swap(Pair &other) noexcept(nothrow_swap);
@@ -46,7 +47,7 @@ private:
   T2 second_{};
 };
 
-// Non-member interface (no friends needed: they only use the public accessors)
+// Non-member interface
 template <typename T1, typename T2>
 void swap(Pair<T1, T2> &a, Pair<T1, T2> &b) noexcept(noexcept(a.swap(b)));
 

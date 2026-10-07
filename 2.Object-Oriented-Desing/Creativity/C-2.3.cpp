@@ -7,3 +7,13 @@
     is provably impossible for that code to ever be executed, but your favorite
     C++ compiler does not detect this fact.
 */
+
+#include <iostream>
+#include <stdexcept>
+
+int main() {
+  if (true) return 0;
+  
+  throw std::runtime_error("This should never happen");
+  std::cout << "Hello World" << std::endl;
+}
