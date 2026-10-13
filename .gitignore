@@ -11,7 +11,9 @@
 *.sln.docstates
 
 /image.jpg
-
+insert_comments*.py
+coments.md
+prompt.md
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
