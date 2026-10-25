@@ -14,7 +14,7 @@
 insert_comments*.py
 comments.md
 prompt.md
-
+AGENTS.md
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 ### CMake ###
