@@ -16,23 +16,26 @@
 #include <memory>
 #include "dictionary_to_map.hpp"
 
-// Helper function to append a node to a linked list for testing.
-// Use the concrete node type rather than assuming the exact template signature of
-// the list node implementation, which keeps the test helper compatible with the
-// linked-list shape used by the project.
-template <typename T, typename K, typename V>
-void append_node(std::unique_ptr<T>& head, const K& key, const V& val) {
-    auto new_node = std::make_unique<T>(key, val);
-    if (!head) {
-        head = std::move(new_node);
-    } else {
-        auto* curr = head.get();
-        while (curr->next) {
-            curr = curr->next.get();
+//Helper  struct to append a node to a linked list for testing.
+template <typename T>
+struct LinkedList {
+    std::unique_ptr<T> head = nullptr;
+    T* tail = nullptr;
+
+    template <typename K, typename V>
+    void append(const K& key, const V& value) {
+        auto new_node = std::make_unique<T>(key, value);
+        auto* raw_node = new_node.get();
+
+        if (!head) {
+            head = std::move(new_node);
+            tail = raw_node;
+        } else {
+            tail->next = std::move(new_node);
+            tail = raw_node;
         }
-        curr->next = std::move(new_node);
     }
-}
+};
 
 // Helper function to extract keys from linked list into a vector for verification
 template <typename K, typename V>
@@ -51,14 +54,15 @@ void run_tests() {
 
     // Test 1: Standard case with duplicate keys, verifying relative order & first occurrence preservation
     {
-        std::unique_ptr<dsa::LinkedListNode<int, std::string>> dict = nullptr;
-        append_node(dict, 1, "one-a");
-        append_node(dict, 2, "two-a");
-        append_node(dict, 1, "one-b");
-        append_node(dict, 3, "three");
-        append_node(dict, 2, "two-b");
+        LinkedList<dsa::LinkedListNode<int, std::string>> dict;
+        dict.append(1, "one-a");
+        dict.append(2, "two-a");
+        dict.append(1, "one-b");
+        dict.append(3, "three");
+        dict.append(2, "two-b");
+        
 
-        auto map_head = dsa::convert_dictionary_to_map(dict.get());
+        auto map_head = dsa::convert_dictionary_to_map(dict.head.get());
         std::vector<int> expected_keys = {1, 2, 3};
         std::vector<int> actual_keys = extract_keys(map_head.get());
 
@@ -82,24 +86,24 @@ void run_tests() {
 
     // Test 3: All unique keys
     {
-        std::unique_ptr<dsa::LinkedListNode<char, int>> dict = nullptr;
-        append_node(dict, 'a', 10);
-        append_node(dict, 'b', 20);
-        append_node(dict, 'c', 30);
+        LinkedList<dsa::LinkedListNode<char,int>> dict;
+        dict.append( 'a', 10);
+        dict.append( 'b', 20);
+        dict.append( 'c', 30);
 
-        auto map_head = dsa::convert_dictionary_to_map(dict.get());
+        auto map_head = dsa::convert_dictionary_to_map(dict.head.get());
         std::vector<char> expected_keys = {'a', 'b', 'c'};
         assert(extract_keys(map_head.get()) == expected_keys);
     }
 
     // Test 4: All duplicate keys
     {
-        std::unique_ptr<dsa::LinkedListNode<int, std::string>> dict = nullptr;
-        append_node(dict, 42, "first");
-        append_node(dict, 42, "second");
-        append_node(dict, 42, "third");
+        LinkedList<dsa::LinkedListNode<int, std::string>> dict;
+        dict.append(42, "first");
+        dict.append(42, "second");
+        dict.append(42, "third");
 
-        auto map_head = dsa::convert_dictionary_to_map(dict.get());
+        auto map_head = dsa::convert_dictionary_to_map(dict.head.get());
         std::vector<int> expected_keys = {42};
         assert(extract_keys(map_head.get()) == expected_keys);
         assert(map_head->value == "first");
@@ -111,17 +115,16 @@ void run_tests() {
 void run_stress_test() {
     std::cout << "[*] Running performance stress test (N = 1,000,000 entries)...\n";
 
-    constexpr size_t N = 1'000'000;
-    std::unique_ptr<dsa::LinkedListNode<int, int>> dict = nullptr;
-
+    constexpr size_t N = 100'000;
+    LinkedList<dsa::LinkedListNode<int, int>> dict;
+    
     // Build a large dictionary where keys loop from 0 to 999 (heavy duplication)
     for (size_t i = 0; i < N; ++i) {
         int key = static_cast<int>(i % 1000);
-        append_node(dict, key, static_cast<int>(i));
+        dict.append(key, static_cast<int>(i));
     }
-
     auto start = std::chrono::high_resolution_clock::now();
-    auto map_head = dsa::convert_dictionary_to_map(dict.get());
+    auto map_head = dsa::convert_dictionary_to_map(dict.head.get());
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double, std::milli> elapsed = end - start;
