@@ -41,10 +41,10 @@
 #include <iostream>
 #include <iterator> // std::begin() and std::end()
 #include <numeric>  // For std::accumulate
-#include <random>   // For std::mt19937 (random number generator for shuffling)
+#include <random> // For std::mt19937 (random number generator for shuffling)
 #include <stdexcept>
 #include <type_traits> // std::is_integral_v<T>
-#include <vector>      // For std::vector
+#include <vector> // For std::vector
 
 // =====================================================================
 // Method 1: Sum Difference

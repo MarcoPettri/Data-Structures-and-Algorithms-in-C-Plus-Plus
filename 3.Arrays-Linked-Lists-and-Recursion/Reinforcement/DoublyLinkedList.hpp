@@ -98,7 +98,7 @@ private:
   struct Node {
     T data;
     std::unique_ptr<Node> next; // owning link
-    Node *prev;                 // non-owning back link
+    Node *prev; // non-owning back link
 
     template <typename... Args>
     explicit Node(Args &&...args)

@@ -26,35 +26,36 @@ Answer:
 // points to the second of the two middle nodes.
 // Precondition: list is non-empty.
 template <typename T>
-typename DoublyLinkedList<T>::iterator
-findMiddle(DoublyLinkedList<T> &list) {
-    auto fwd = list.begin();          // hops forward  (→)
-    auto bwd = list.end(); --bwd;     // hops backward (←), starts at last node
+typename DoublyLinkedList<T>::iterator findMiddle(DoublyLinkedList<T> &list) {
+  auto fwd = list.begin();          // hops forward  (→)
+  auto bwd = list.end();
+  --bwd;     // hops backward (←), starts at last node
 
     // Advance both pointers until they meet or cross.
-    while (fwd != bwd) {
-        ++fwd;
-        if (fwd == bwd) break;  // they just met → stop before overshooting
-        --bwd;
-    }
-    return fwd;
+  while (fwd != bwd) {
+    ++fwd;
+    if (fwd == bwd)
+      break;  // they just met → stop before overshooting
+    --bwd;
+  }
+  return fwd;
 }
 
 int main() {
-    // ── odd-length list: middle of {1,2,3,4,5} is 3 ──────────────────────
-    DoublyLinkedList<int> odd = {1, 2, 3, 4, 5};
-    std::cout << "Odd list  {1,2,3,4,5}  → middle = "
-              << *findMiddle(odd) << "\n";   // expected: 3
+  // ── odd-length list: middle of {1,2,3,4,5} is 3 ──────────────────────
+  DoublyLinkedList<int> odd = {1, 2, 3, 4, 5};
+  std::cout << "Odd list  {1,2,3,4,5}  → middle = " << *findMiddle(odd)
+            << "\n";   // expected: 3
 
     // ── even-length list: two middles of {1,2,3,4} are 2 and 3 ──────────
-    DoublyLinkedList<int> even = {1, 2, 3, 4};
-    std::cout << "Even list {1,2,3,4}    → middle = "
-              << *findMiddle(even) << "\n";  // expected: 3 (second middle)
+  DoublyLinkedList<int> even = {1, 2, 3, 4};
+  std::cout << "Even list {1,2,3,4}    → middle = " << *findMiddle(even)
+            << "\n";  // expected: 3 (second middle)
 
     // ── single-element list ───────────────────────────────────────────────
-    DoublyLinkedList<int> single = {42};
-    std::cout << "Single    {42}         → middle = "
-              << *findMiddle(single) << "\n"; // expected: 42
+  DoublyLinkedList<int> single = {42};
+  std::cout << "Single    {42}         → middle = " << *findMiddle(single)
+            << "\n"; // expected: 42
 
-    return 0;
+  return 0;
 }

@@ -8,7 +8,6 @@
 
 #include <cstddef>
 #include <optional>
-#include <optional>
 #include <utility>
 /**
  * @class OrderedListMap

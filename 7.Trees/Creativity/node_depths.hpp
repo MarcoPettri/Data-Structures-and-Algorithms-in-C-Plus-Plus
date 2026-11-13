@@ -44,7 +44,7 @@ template <typename T>
 [[nodiscard]] std::unordered_map<typename adt::GeneralTree<T>::Position, int>
 computeDepths(const adt::GeneralTree<T> &tree) {
   using Position = typename adt::GeneralTree<T>::Position;
-  using Entry    = std::pair<Position, int>; // (node, depth)
+  using Entry = std::pair<Position, int>; // (node, depth)
 
   std::unordered_map<Position, int> depthOf;
   depthOf.reserve(tree.size());

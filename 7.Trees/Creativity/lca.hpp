@@ -62,7 +62,7 @@ lowestCommonAncestor(const GeneralTree<T> &tree,
 
   std::vector<Frame> path;
   std::size_t candidate = kNone;   // deepest on-path ancestor-or-self of the
-                                   // first target found; kNone = none found yet
+  // first target found; kNone = none found yet
   Position entering = tree.root(); // node about to be pushed (null = none)
 
   while (entering != nullptr || !path.empty()) {

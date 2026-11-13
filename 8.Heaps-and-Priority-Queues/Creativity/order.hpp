@@ -47,9 +47,9 @@ struct Order {
  * @brief The result of matching one buy order with one sell order.
  */
 struct Trade {
-  OrderId buyId{};  ///< Id of the buy order.
+  OrderId buyId{}; ///< Id of the buy order.
   OrderId sellId{}; ///< Id of the sell order.
-  Price price{};    ///< Execution price in cents (the resting order's price).
+  Price price{}; ///< Execution price in cents (the resting order's price).
   int quantity{kOrderQuantity}; ///< Number of shares exchanged.
 };
 

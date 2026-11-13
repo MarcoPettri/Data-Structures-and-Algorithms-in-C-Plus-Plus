@@ -14,18 +14,17 @@
 
 int main() {
 
-	Flower flower1 = Flower("Lotus", 20, 20.78);
+  Flower flower1 = Flower("Lotus", 20, 20.78);
 
-	std::cout << flower1;
+  std::cout << flower1;
 
-	
-	//-------Test Members Functions-------//
-	flower1.setName("Iris");
-	flower1.setPrice(23.44);
-	flower1.setPetals(3);
-	std::cout << "\nName: " << flower1.name() << std::endl;
-	std::cout << "Number of Petals: " << flower1.petals() << std::endl;
-	std::cout << "Price: " << flower1.price() << std::endl;
+  //-------Test Members Functions-------//
+  flower1.setName("Iris");
+  flower1.setPrice(23.44);
+  flower1.setPetals(3);
+  std::cout << "\nName: " << flower1.name() << std::endl;
+  std::cout << "Number of Petals: " << flower1.petals() << std::endl;
+  std::cout << "Price: " << flower1.price() << std::endl;
 
-	return 0;
+  return 0;
 }

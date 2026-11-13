@@ -59,11 +59,11 @@ namespace algo {
  * @return true if the two subtrees are isomorphic; false otherwise.
  */
 template <typename T1, typename T2>
-[[nodiscard]] bool areSubtreesIsomorphic(
-    const adt::GeneralTree<T1> &tree1,
-    typename adt::GeneralTree<T1>::Position root1,
-    const adt::GeneralTree<T2> &tree2,
-    typename adt::GeneralTree<T2>::Position root2) {
+[[nodiscard]] bool
+areSubtreesIsomorphic(const adt::GeneralTree<T1> &tree1,
+                      typename adt::GeneralTree<T1>::Position root1,
+                      const adt::GeneralTree<T2> &tree2,
+                      typename adt::GeneralTree<T2>::Position root2) {
   using Pos1 = typename adt::GeneralTree<T1>::Position;
   using Pos2 = typename adt::GeneralTree<T2>::Position;
 

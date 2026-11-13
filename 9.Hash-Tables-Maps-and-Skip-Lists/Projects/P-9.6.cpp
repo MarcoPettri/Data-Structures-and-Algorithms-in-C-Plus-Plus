@@ -114,8 +114,7 @@ static_assert(
     std::is_same_v<std::iterator_traits<IntMap::iterator>::iterator_category,
                    std::forward_iterator_tag>);
 static_assert(std::is_convertible_v<IntMap::iterator, IntMap::const_iterator>);
-static_assert(
-    !std::is_convertible_v<IntMap::const_iterator, IntMap::iterator>);
+static_assert(!std::is_convertible_v<IntMap::const_iterator, IntMap::iterator>);
 static_assert(std::is_const_v<std::remove_reference_t<
                   decltype(std::declval<IntMap::value_type &>().first)>>);
 

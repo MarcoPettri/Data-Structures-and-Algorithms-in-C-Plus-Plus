@@ -7,11 +7,11 @@
 #ifndef ITERATIVE_QUICKSORT_HPP
 #define ITERATIVE_QUICKSORT_HPP
 
-#include <iterator>
 #include <algorithm>
+#include <iterator>
 #include <stack>
-#include <utility>
 #include <type_traits>
+#include <utility>
 
 namespace dsa {
 
@@ -29,25 +29,28 @@ namespace detail {
  */
 template <typename RandomIt, typename Compare>
 [[nodiscard]] RandomIt partition(RandomIt first, RandomIt last, Compare comp) {
-    auto last_elem = std::prev(last);
-    auto mid = first + std::distance(first, last) / 2;
+  auto last_elem = std::prev(last);
+  auto mid = first + std::distance(first, last) / 2;
 
-    // Median-of-three pivot selection to prevent worst-case O(n^2) degradation on sorted data
-    if (comp(*mid, *first)) std::iter_swap(first, mid);
-    if (comp(*last_elem, *first)) std::iter_swap(first, last_elem);
-    if (comp(*mid, *last_elem)) std::iter_swap(mid, last_elem);
+  // Median-of-three pivot selection to prevent worst-case O(n^2) degradation on sorted data
+  if (comp(*mid, *first))
+    std::iter_swap(first, mid);
+  if (comp(*last_elem, *first))
+    std::iter_swap(first, last_elem);
+  if (comp(*mid, *last_elem))
+    std::iter_swap(mid, last_elem);
 
-    auto pivot_val = *last_elem;
-    RandomIt i = first;
+  auto pivot_val = *last_elem;
+  RandomIt i = first;
 
-    for (RandomIt j = first; j != last_elem; ++j) {
-        if (comp(*j, pivot_val)) {
-            std::iter_swap(i, j);
-            ++i;
-        }
+  for (RandomIt j = first; j != last_elem; ++j) {
+    if (comp(*j, pivot_val)) {
+      std::iter_swap(i, j);
+      ++i;
     }
-    std::iter_swap(i, last_elem);
-    return i;
+  }
+  std::iter_swap(i, last_elem);
+  return i;
 }
 
 } // namespace detail
@@ -70,57 +73,55 @@ template <typename RandomIt, typename Compare>
  *   iteratively, the stack depth is strictly bounded by $\mathcal{O}(\log n)$.
  */
 template <typename RandomIt, typename Compare = std::less<>>
-void iterative_quicksort(RandomIt first, RandomIt last, Compare comp = Compare{}) {
-    static_assert(
-        std::is_base_of_v<
-            std::random_access_iterator_tag,
-            typename std::iterator_traits<RandomIt>::iterator_category
-        >,
-        "Iterative QuickSort requires Random Access Iterators."
-    );
+void iterative_quicksort(RandomIt first, RandomIt last,
+                         Compare comp = Compare{}) {
+  static_assert(std::is_base_of_v<
+                    std::random_access_iterator_tag,
+                    typename std::iterator_traits<RandomIt>::iterator_category>,
+                "Iterative QuickSort requires Random Access Iterators.");
 
-    if (first >= last || std::distance(first, last) <= 1) {
-        return;
-    }
+  if (first >= last || std::distance(first, last) <= 1) {
+    return;
+  }
 
-    // Explicit stack storing subproblem iterator pairs [low, high]
-    std::stack<std::pair<RandomIt, RandomIt>> stack;
-    stack.push({first, last});
+  // Explicit stack storing subproblem iterator pairs [low, high]
+  std::stack<std::pair<RandomIt, RandomIt>> stack;
+  stack.push({first, last});
 
-    while (!stack.empty()) {
-        auto [low, high] = stack.top();
-        stack.pop();
+  while (!stack.empty()) {
+    auto [low, high] = stack.top();
+    stack.pop();
 
-        auto dist = std::distance(low, high);
-        if (dist > 1) {
-            RandomIt pivot_pos = detail::partition(low, high, comp);
+    auto dist = std::distance(low, high);
+    if (dist > 1) {
+      RandomIt pivot_pos = detail::partition(low, high, comp);
 
-            RandomIt left_low = low;
-            RandomIt left_high = pivot_pos;
-            RandomIt right_low = std::next(pivot_pos);
-            RandomIt right_high = high;
+      RandomIt left_low = low;
+      RandomIt left_high = pivot_pos;
+      RandomIt right_low = std::next(pivot_pos);
+      RandomIt right_high = high;
 
-            auto left_size = std::distance(left_low, left_high);
-            auto right_size = std::distance(right_low, right_high);
+      auto left_size = std::distance(left_low, left_high);
+      auto right_size = std::distance(right_low, right_high);
 
-            // Push larger subproblem first to guarantee O(log n) auxiliary stack space
-            if (left_size > right_size) {
-                if (left_size > 1) {
-                    stack.push({left_low, left_high});
-                }
-                if (right_size > 1) {
-                    stack.push({right_low, right_high});
-                }
-            } else {
-                if (right_size > 1) {
-                    stack.push({right_low, right_high});
-                }
-                if (left_size > 1) {
-                    stack.push({left_low, left_high});
-                }
-            }
+      // Push larger subproblem first to guarantee O(log n) auxiliary stack space
+      if (left_size > right_size) {
+        if (left_size > 1) {
+          stack.push({left_low, left_high});
         }
+        if (right_size > 1) {
+          stack.push({right_low, right_high});
+        }
+      } else {
+        if (right_size > 1) {
+          stack.push({right_low, right_high});
+        }
+        if (left_size > 1) {
+          stack.push({left_low, left_high});
+        }
+      }
     }
+  }
 }
 
 } // namespace dsa

@@ -31,7 +31,7 @@ namespace c72 {
  * Children are ordered left-to-right to preserve the order from the input.
  */
 struct Node {
-  int label{};                                 ///< 1-based DFS discovery order.
+  int label{}; ///< 1-based DFS discovery order.
   std::vector<std::unique_ptr<Node>> children; ///< Ordered child list.
 
   /** @brief Convenience constructor. */

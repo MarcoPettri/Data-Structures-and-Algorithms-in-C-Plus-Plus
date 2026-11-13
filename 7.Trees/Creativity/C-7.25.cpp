@@ -118,13 +118,13 @@ void testSmallExample() {
   // Longest path: 7-6-3-0-1-4 (5 edges).
   Model m;
   m.addRoot(); // 0
-  m.add(0);    // 1
-  m.add(0);    // 2
-  m.add(0);    // 3
-  m.add(1);    // 4
-  m.add(1);    // 5
-  m.add(3);    // 6
-  m.add(6);    // 7
+  m.add(0); // 1
+  m.add(0); // 2
+  m.add(0); // 3
+  m.add(1); // 4
+  m.add(1); // 5
+  m.add(3); // 6
+  m.add(6); // 7
   CHECK(m.diameter() == 5);
   CHECK(m.diameter() == oracleDiameter(m.par));
 }
@@ -133,11 +133,11 @@ void testPathAvoidsRoot() {
   // The root has a single child; the longest path 4-2-1-3-5 lies below it.
   Model m;
   m.addRoot(); // 0
-  m.add(0);    // 1
-  m.add(1);    // 2
-  m.add(1);    // 3
-  m.add(2);    // 4
-  m.add(3);    // 5
+  m.add(0); // 1
+  m.add(1); // 2
+  m.add(1); // 3
+  m.add(2); // 4
+  m.add(3); // 5
   CHECK(m.diameter() == 4);
   CHECK(m.diameter() == oracleDiameter(m.par));
 }
@@ -146,13 +146,13 @@ void testTwoUnequalChains() {
   // Root with chains of length 3 and 4: the path joins their ends (7 edges).
   Model m;
   m.addRoot(); // 0
-  m.add(0);    // 1
-  m.add(1);    // 2
-  m.add(2);    // 3
-  m.add(0);    // 4
-  m.add(4);    // 5
-  m.add(5);    // 6
-  m.add(6);    // 7
+  m.add(0); // 1
+  m.add(1); // 2
+  m.add(2); // 3
+  m.add(0); // 4
+  m.add(4); // 5
+  m.add(5); // 6
+  m.add(6); // 7
   CHECK(m.diameter() == 7);
   CHECK(m.diameter() == oracleDiameter(m.par));
 }

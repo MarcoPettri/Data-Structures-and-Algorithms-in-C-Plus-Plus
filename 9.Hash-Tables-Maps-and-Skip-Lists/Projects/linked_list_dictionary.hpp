@@ -423,9 +423,9 @@ private:
   Node *appendNode(KeyArg &&key, Args &&...args);
 
   std::unique_ptr<Node> head_; ///< Owns the whole chain.
-  Node *tail_ = nullptr;       ///< Non-owning pointer to the last node.
-  size_type size_ = 0;         ///< Number of nodes.
-  key_equal equal_{};          ///< Key-equivalence predicate.
+  Node *tail_ = nullptr; ///< Non-owning pointer to the last node.
+  size_type size_ = 0; ///< Number of nodes.
+  key_equal equal_{}; ///< Key-equivalence predicate.
 };
 
 /**

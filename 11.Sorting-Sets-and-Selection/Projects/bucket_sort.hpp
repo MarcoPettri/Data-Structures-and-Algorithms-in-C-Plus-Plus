@@ -65,7 +65,7 @@ namespace algo {
  * @endcode
  */
 template <typename T, typename Alloc, typename KeyFn>
-void bucket_sort(std::list<T, Alloc>& list, std::size_t N, KeyFn key);
+void bucket_sort(std::list<T, Alloc> &list, std::size_t N, KeyFn key);
 
 /**
  * @brief Stable bucket sort of a `std::list<int>` whose values are the keys.
@@ -78,7 +78,7 @@ void bucket_sort(std::list<T, Alloc>& list, std::size_t N, KeyFn key);
  *
  * @see bucket_sort(std::list<T, Alloc>&, std::size_t, KeyFn)
  */
-void bucket_sort(std::list<int>& list, std::size_t N);
+void bucket_sort(std::list<int> &list, std::size_t N);
 
 }  // namespace algo
 

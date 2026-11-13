@@ -27,7 +27,7 @@ public:
   ArrayDeque(ArrayDeque &&other) noexcept; // leaves other empty, capacity 0
   ArrayDeque &
   operator=(ArrayDeque other) noexcept; // copy-and-swap; handles copy and move
-  ~ArrayDeque() = default;              // unique_ptr frees the buffer
+  ~ArrayDeque() = default; // unique_ptr frees the buffer
 
   void swap(ArrayDeque &other) noexcept;
   friend void swap(ArrayDeque &a, ArrayDeque &b) noexcept { a.swap(b); }
@@ -55,12 +55,12 @@ private:
   static std::size_t validated(std::size_t capacity);
   void requireNonEmpty() const;
   void makeRoom(); // ensures one free slot, or throws / grows
-  void grow();     // doubles capacity and unwraps the contents
+  void grow(); // doubles capacity and unwraps the contents
 
   std::unique_ptr<T[]> buf_;
   std::size_t cap_;
   std::size_t front_ = 0; // index of the first element
-  std::size_t size_ = 0;  // number of stored elements
+  std::size_t size_ = 0; // number of stored elements
   bool growable_;
 };
 

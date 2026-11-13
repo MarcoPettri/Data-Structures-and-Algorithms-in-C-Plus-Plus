@@ -115,13 +115,13 @@ void testSmallExample() {
   //                7
   Model m;
   m.addRoot(); // 0
-  m.add(0);    // 1
-  m.add(0);    // 2
-  m.add(0);    // 3
-  m.add(1);    // 4
-  m.add(1);    // 5
-  m.add(3);    // 6
-  m.add(6);    // 7
+  m.add(0); // 1
+  m.add(0); // 2
+  m.add(0); // 3
+  m.add(1); // 4
+  m.add(1); // 5
+  m.add(3); // 6
+  m.add(6); // 7
 
   CHECK(m.lcaIs(4, 5, 1)); // siblings
   CHECK(m.lcaIs(4, 2, 0)); // different subtrees of the root

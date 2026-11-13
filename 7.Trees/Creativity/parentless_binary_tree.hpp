@@ -35,7 +35,7 @@ template <typename E> class ParentlessBinaryTree {
 
   /// Result of a root-to-node search.
   struct Locator {
-    Node *parent;      ///< parent of the target (nullptr if target is the root)
+    Node *parent; ///< parent of the target (nullptr if target is the root)
     Node *grandparent; ///< grandparent of the target (nullptr if none)
     std::size_t depth; ///< number of ancestors of the target
   };

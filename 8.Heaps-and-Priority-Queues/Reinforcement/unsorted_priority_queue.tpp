@@ -13,7 +13,7 @@
 #include <stdexcept>
 #include <utility>
 
-#include "unsorted_priority_queue.hpp"  // no-op when reached via the header; helps IDEs
+#include "unsorted_priority_queue.hpp" // no-op when reached via the header; helps IDEs
 
 namespace ds {
 
@@ -26,33 +26,34 @@ UnsortedPriorityQueue<T, Compare>::UnsortedPriorityQueue(Compare comp)
 
 template <typename T, typename Compare>
 template <typename InputIt, typename>
-UnsortedPriorityQueue<T, Compare>::UnsortedPriorityQueue(InputIt first, InputIt last,
+UnsortedPriorityQueue<T, Compare>::UnsortedPriorityQueue(InputIt first,
+                                                         InputIt last,
                                                          Compare comp)
     : comp_(std::move(comp)), items_(first, last) {}
 
 template <typename T, typename Compare>
-UnsortedPriorityQueue<T, Compare>::UnsortedPriorityQueue(std::initializer_list<T> init,
-                                                         Compare comp)
+UnsortedPriorityQueue<T, Compare>::UnsortedPriorityQueue(
+    std::initializer_list<T> init, Compare comp)
     : comp_(std::move(comp)), items_(init) {}
 
 template <typename T, typename Compare>
-void UnsortedPriorityQueue<T, Compare>::insert(const T& value) {
+void UnsortedPriorityQueue<T, Compare>::insert(const T &value) {
   items_.push_back(value);
 }
 
 template <typename T, typename Compare>
-void UnsortedPriorityQueue<T, Compare>::insert(T&& value) {
+void UnsortedPriorityQueue<T, Compare>::insert(T &&value) {
   items_.push_back(std::move(value));
 }
 
 template <typename T, typename Compare>
 template <typename... Args>
-void UnsortedPriorityQueue<T, Compare>::emplace(Args&&... args) {
+void UnsortedPriorityQueue<T, Compare>::emplace(Args &&...args) {
   items_.emplace_back(std::forward<Args>(args)...);
 }
 
 template <typename T, typename Compare>
-const T& UnsortedPriorityQueue<T, Compare>::min() const {
+const T &UnsortedPriorityQueue<T, Compare>::min() const {
   return *findMin();
 }
 
@@ -76,6 +77,6 @@ auto UnsortedPriorityQueue<T, Compare>::findMin() const -> ConstIterator {
   return std::min_element(items_.cbegin(), items_.cend(), comp_);
 }
 
-}  // namespace ds
+} // namespace ds
 
-#endif  // DS_UNSORTED_PRIORITY_QUEUE_TPP
+#endif // DS_UNSORTED_PRIORITY_QUEUE_TPP

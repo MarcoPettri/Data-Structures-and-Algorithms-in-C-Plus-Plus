@@ -125,15 +125,15 @@ static void test_constructors() {
 
 static void test_insert_remove_at() {
   adt::ArrayList<int> l{1, 2, 3};
-  l.insert(0, 0);  // [0,1,2,3]
-  l.insert(4, 4);  // [0,1,2,3,4]
+  l.insert(0, 0); // [0,1,2,3]
+  l.insert(4, 4); // [0,1,2,3,4]
   l.insert(2, 99); // [0,1,99,2,3,4]
   CHECK(equals(l, {0, 1, 99, 2, 3, 4}));
   CHECK(l.remove_at(2) == 99); // [0,1,2,3,4]
-  CHECK(l.remove_at(0) == 0);  // [1,2,3,4]
-  CHECK(l.remove_at(3) == 4);  // [1,2,3]
-  l.pop_front();               // [2,3]
-  l.pop_back();                // [2]
+  CHECK(l.remove_at(0) == 0); // [1,2,3,4]
+  CHECK(l.remove_at(3) == 4); // [1,2,3]
+  l.pop_front(); // [2,3]
+  l.pop_back(); // [2]
   CHECK(equals(l, {2}));
 }
 
@@ -196,11 +196,11 @@ static void test_aliasing() {
   l.reserve(3);
   l.push_back(A);
   l.push_back("x");
-  l.push_back("y");  // [A,x,y], exactly full
+  l.push_back("y"); // [A,x,y], exactly full
   l.insert(1, l[0]); // reallocating path, argument aliases an element
   CHECK(l.size() == 4 && l[0] == A && l[1] == A && l[2] == "x" && l[3] == "y");
 
-  l.reserve(10);     // spare room: in-place path
+  l.reserve(10); // spare room: in-place path
   l.insert(0, l[3]); // argument aliases an element that gets shifted
   CHECK(l.size() == 5 && l[0] == "y" && l[1] == A && l[2] == A && l[3] == "x" &&
         l[4] == "y");

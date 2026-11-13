@@ -81,7 +81,7 @@ public:
   struct Result {
     OrderId id;    ///< Id of the order the call concerned.
     bool accepted; ///< false only if updatePrice() found no pending order with
-                   ///< that id.
+    ///< that id.
     std::optional<Trade> trade; ///< Set if the order was executed immediately.
   };
 
@@ -169,10 +169,10 @@ private:
   template <typename Heap>
   Result reprice(Heap &own, Order current, Price newPrice);
 
-  OrderHeap<BuyPriority> bids_;  ///< Pending buys, best (highest) price on top.
+  OrderHeap<BuyPriority> bids_; ///< Pending buys, best (highest) price on top.
   OrderHeap<SellPriority> asks_; ///< Pending sells, best (lowest) price on top.
-  OrderId nextId_{1};            ///< Next id to hand out.
-  Sequence nextSequence_{0};     ///< Next arrival stamp to hand out.
+  OrderId nextId_{1}; ///< Next id to hand out.
+  Sequence nextSequence_{0}; ///< Next arrival stamp to hand out.
 };
 
 } // namespace stock

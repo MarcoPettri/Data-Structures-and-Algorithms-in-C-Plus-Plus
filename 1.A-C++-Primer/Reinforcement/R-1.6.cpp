@@ -1,4 +1,4 @@
-// Exercise  Reinforcement: R-1.6 
+// Exercise  Reinforcement: R-1.6
 
 /*
 		Consider the following attempt to allocate a 10-element array of pointers
@@ -12,20 +12,22 @@
 
 */
 
-#include<iostream>
-#include<iomanip>
+#include <iomanip>
+#include <iostream>
 
 int main() {
 
-	double* dp[10];
-	std::cout << std::fixed << std::setprecision(1);
+  double *dp[10];
+  std::cout << std::fixed << std::setprecision(1);
 
-	for (int i{ 0 }; i < 10; i++) {
+  for (int i{0}; i < 10; i++) {
 
-		double j = 0.0;
-		dp[i] = &j;
-	}
+    double j = 0.0;
+    dp[i] = &j;
+  }
 
-	for (auto val : dp) { std::cout << *val << " "; }
-	return 0;
+  for (auto val : dp) {
+    std::cout << *val << " ";
+  }
+  return 0;
 }

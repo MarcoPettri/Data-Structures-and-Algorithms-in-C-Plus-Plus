@@ -7,9 +7,9 @@
 #ifndef REMOVE_DUPLICATES_HPP
 #define REMOVE_DUPLICATES_HPP
 
-#include <vector>
-#include <unordered_set>
 #include <iterator>
+#include <unordered_set>
+#include <vector>
 
 namespace dsa {
 
@@ -31,25 +31,22 @@ namespace dsa {
  * - Time: O(n) expected, O(n²) worst-case due to hash collisions.
  * - Space: O(n), including the hash set and output container.
  */
-template <
-    typename InputIt,
-    typename Container = std::vector<
-        typename std::iterator_traits<InputIt>::value_type
-    >
->
+template <typename InputIt,
+          typename Container =
+              std::vector<typename std::iterator_traits<InputIt>::value_type>>
 [[nodiscard]] Container remove_duplicates(InputIt first, InputIt last) {
-    using value_type = typename std::iterator_traits<InputIt>::value_type;
+  using value_type = typename std::iterator_traits<InputIt>::value_type;
 
-    Container result;
-    std::unordered_set<value_type> seen;
+  Container result;
+  std::unordered_set<value_type> seen;
 
-    for (; first != last; ++first) {
-        if (seen.insert(*first).second) {
-            result.push_back(*first);
-        }
+  for (; first != last; ++first) {
+    if (seen.insert(*first).second) {
+      result.push_back(*first);
     }
+  }
 
-    return result;
+  return result;
 }
 
 } // namespace dsa

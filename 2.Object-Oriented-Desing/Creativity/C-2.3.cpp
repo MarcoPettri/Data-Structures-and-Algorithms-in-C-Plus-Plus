@@ -12,8 +12,9 @@
 #include <stdexcept>
 
 int main() {
-  if (true) return 0;
-  
+  if (true)
+    return 0;
+
   throw std::runtime_error("This should never happen");
   std::cout << "Hello World" << std::endl;
 }

@@ -28,8 +28,7 @@ namespace adt {
  * @brief General ordered rooted tree.
  * @tparam T Element type stored at each node.
  */
-template <typename T>
-class GeneralTree {
+template <typename T> class GeneralTree {
 public:
   // -------------------------------------------------------------------------
   // Internal node type
@@ -79,8 +78,7 @@ public:
 
   /** @brief Move constructor; leaves @p other empty. */
   GeneralTree(GeneralTree &&other) noexcept
-      : root_(std::move(other.root_)),
-        size_(std::exchange(other.size_, 0)) {}
+      : root_(std::move(other.root_)), size_(std::exchange(other.size_, 0)) {}
 
   /** @brief Move-assignment; leaves @p other empty. */
   GeneralTree &operator=(GeneralTree &&other) noexcept {

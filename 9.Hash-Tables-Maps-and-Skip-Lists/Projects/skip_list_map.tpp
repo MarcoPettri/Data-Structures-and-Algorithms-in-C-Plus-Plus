@@ -22,7 +22,7 @@ SkipListMap<K, V, C>::SkipListMap()
 
 template <typename K, typename V, typename C>
 SkipListMap<K, V, C>::SkipListMap(size_type maxLevel, double probability,
-                                 key_compare compare, std::uint32_t seed)
+                                  key_compare compare, std::uint32_t seed)
     : max_level_(maxLevel), probability_(probability), head_(maxLevel),
       compare_(std::move(compare)), random_engine_(seed) {
   if (max_level_ == 0) {
@@ -37,8 +37,8 @@ SkipListMap<K, V, C>::SkipListMap(size_type maxLevel, double probability,
 
 template <typename K, typename V, typename C>
 SkipListMap<K, V, C>::SkipListMap(std::initializer_list<value_type> init,
-                                 key_compare compare, size_type maxLevel,
-                                 double probability, std::uint32_t seed)
+                                  key_compare compare, size_type maxLevel,
+                                  double probability, std::uint32_t seed)
     : SkipListMap(maxLevel, probability, std::move(compare), seed) {
   try {
     for (const auto &entry : init) {
@@ -70,7 +70,8 @@ SkipListMap<K, V, C>::SkipListMap(SkipListMap &&other)
 }
 
 template <typename K, typename V, typename C>
-auto SkipListMap<K, V, C>::operator=(const SkipListMap &other) -> SkipListMap & {
+auto SkipListMap<K, V, C>::operator=(const SkipListMap &other)
+    -> SkipListMap & {
   if (this != std::addressof(other)) {
     SkipListMap copy(other);
     swapContents(copy);
@@ -425,8 +426,8 @@ void SkipListMap<K, V, C>::copyFrom(const SkipListMap &other) {
        source = source->forward[0]) {
     auto update = predecessors(source->entry->first);
     const size_type height = source->forward.size();
-    Node *const node = new Node(height, source->entry->first,
-                                source->entry->second);
+    Node *const node =
+        new Node(height, source->entry->first, source->entry->second);
     for (size_type level = 0; level < height; ++level) {
       node->forward[level] = update[level]->forward[level];
       update[level]->forward[level] = node;
@@ -436,8 +437,8 @@ void SkipListMap<K, V, C>::copyFrom(const SkipListMap &other) {
 }
 
 template <typename K, typename V, typename C>
-void SkipListMap<K, V, C>::swapContents(
-    SkipListMap &other) noexcept(std::is_nothrow_swappable_v<key_compare>) {
+void SkipListMap<K, V, C>::swapContents(SkipListMap &other) noexcept(
+    std::is_nothrow_swappable_v<key_compare>) {
   using std::swap;
   head_.forward.swap(other.head_.forward);
   swap(size_, other.size_);

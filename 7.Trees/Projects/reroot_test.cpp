@@ -243,13 +243,13 @@ void testSmallExample() {
   //                7
   Model m;
   m.addRoot(); // 0
-  m.add(0);    // 1
-  m.add(0);    // 2
-  m.add(0);    // 3
-  m.add(1);    // 4
-  m.add(1);    // 5
-  m.add(3);    // 6
-  m.add(6);    // 7
+  m.add(0); // 1
+  m.add(0); // 2
+  m.add(0); // 3
+  m.add(1); // 4
+  m.add(1); // 5
+  m.add(3); // 6
+  m.add(6); // 7
 
   const Shape original = {{0, 0}, {1, 1}, {4, 2}, {5, 2},
                           {2, 1}, {3, 1}, {6, 2}, {7, 3}};

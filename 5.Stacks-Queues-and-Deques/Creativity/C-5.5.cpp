@@ -26,45 +26,46 @@
 #include <optional>
 #include <queue>
 
-template <typename T>
-class QueueStack {
+template <typename T> class QueueStack {
 public:
-    void push(const T& x) {
-        q2_.push(x);                  // new element goes in first
-        while (!q1_.empty()) {        // then everything older goes behind it
-            q2_.push(q1_.front());
-            q1_.pop();
-        }
-        q1_.swap(q2_);                // q1_ now holds the stack, q2_ is empty
+  void push(const T &x) {
+    q2_.push(x);                  // new element goes in first
+    while (!q1_.empty()) {        // then everything older goes behind it
+      q2_.push(q1_.front());
+      q1_.pop();
     }
+    q1_.swap(q2_);                // q1_ now holds the stack, q2_ is empty
+  }
 
-    // Returns false if the stack is empty (no exception).
-    bool pop() {
-        if (q1_.empty()) return false;
-        q1_.pop();
-        return true;
-    }
+  // Returns false if the stack is empty (no exception).
+  bool pop() {
+    if (q1_.empty())
+      return false;
+    q1_.pop();
+    return true;
+  }
 
-    std::optional<T> top() const {
-        if (q1_.empty()) return std::nullopt;
-        return q1_.front();
-    }
+  std::optional<T> top() const {
+    if (q1_.empty())
+      return std::nullopt;
+    return q1_.front();
+  }
 
-    bool empty() const { return q1_.empty(); }
-    std::size_t size() const { return q1_.size(); }
+  bool empty() const { return q1_.empty(); }
+  std::size_t size() const { return q1_.size(); }
 
 private:
-    std::queue<T> q1_;   // holds the elements, top of stack at the front
-    std::queue<T> q2_;   // temporary, empty between operations
+  std::queue<T> q1_;   // holds the elements, top of stack at the front
+  std::queue<T> q2_;   // temporary, empty between operations
 };
 
-int main(){
-    QueueStack<int> s;
-    s.push(1); s.push(2); s.push(3);
+int main() {
+  QueueStack<int> s;
+  s.push(1);
+  s.push(2);
+  s.push(3);
 
-    std::cout << *s.top() << '\n';   // 3
-    s.pop();
-    std::cout << *s.top() << '\n';   // 2
+  std::cout << *s.top() << '\n';   // 3
+  s.pop();
+  std::cout << *s.top() << '\n';   // 2
 }
-
-

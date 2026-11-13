@@ -317,7 +317,7 @@ private:
   void release_() noexcept; ///< Destroy all + free; back to empty state.
   void truncate_(
       size_type new_size) noexcept; ///< Destroy elements at index >= new_size.
-  void relocate_(pointer dest);     ///< Move/copy [0,size_) into raw @p dest.
+  void relocate_(pointer dest); ///< Move/copy [0,size_) into raw @p dest.
   void reallocate_(size_type new_cap); ///< Move to a new block of @p new_cap.
   size_type next_capacity_(size_type required) const;
   void check_room_(size_type extra) const; ///< Throws length_error on overflow.
@@ -325,10 +325,10 @@ private:
   void steal_(ArrayVector &other) noexcept;
   /// @}
 
-  allocator_type alloc_;   ///< Allocator instance.
+  allocator_type alloc_; ///< Allocator instance.
   pointer data_ = nullptr; ///< Start of storage.
-  size_type size_ = 0;     ///< Number of live elements.
-  size_type cap_ = 0;      ///< Allocated slots.
+  size_type size_ = 0; ///< Number of live elements.
+  size_type cap_ = 0; ///< Allocated slots.
 };
 
 /// @name Non-member functions

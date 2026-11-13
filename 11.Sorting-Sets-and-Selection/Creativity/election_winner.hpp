@@ -7,10 +7,10 @@
 #ifndef ELECTION_WINNER_HPP
 #define ELECTION_WINNER_HPP
 
-#include <vector>
-#include <iterator>
 #include <algorithm>
+#include <iterator>
 #include <optional>
+#include <vector>
 
 namespace dsa {
 
@@ -30,47 +30,47 @@ namespace dsa {
  * - **Space Complexity:** $\mathcal{O}(n)$ auxiliary space to store the copied and sorted sequence of votes.
  */
 template <typename InputIt>
-[[nodiscard]] auto find_election_winner(InputIt first, InputIt last) 
+[[nodiscard]] auto find_election_winner(InputIt first, InputIt last)
     -> std::optional<typename std::iterator_traits<InputIt>::value_type> {
-    
-    using candidate_type = typename std::iterator_traits<InputIt>::value_type;
 
-    if (first == last) {
-        return std::nullopt;
-    }
+  using candidate_type = typename std::iterator_traits<InputIt>::value_type;
 
-    // Copy elements into a local vector to preserve input immutability
-    std::vector<candidate_type> votes(first, last);
+  if (first == last) {
+    return std::nullopt;
+  }
 
-    // Sort votes to group identical candidate IDs together - O(n log n)
-    std::sort(votes.begin(), votes.end());
+  // Copy elements into a local vector to preserve input immutability
+  std::vector<candidate_type> votes(first, last);
 
-    candidate_type winner = votes[0];
-    size_t max_count = 0;
-    size_t current_count = 0;
-    candidate_type current_candidate = votes[0];
+  // Sort votes to group identical candidate IDs together - O(n log n)
+  std::sort(votes.begin(), votes.end());
 
-    // Linear frequency scan - O(n)
-    for (size_t i = 0; i < votes.size(); ++i) {
-        if (votes[i] == current_candidate) {
-            ++current_count;
-        } else {
-            if (current_count > max_count) {
-                max_count = current_count;
-                winner = current_candidate;
-            }
-            current_candidate = votes[i];
-            current_count = 1;
-        }
-    }
+  candidate_type winner = votes[0];
+  size_t max_count = 0;
+  size_t current_count = 0;
+  candidate_type current_candidate = votes[0];
 
-    // Final check for the last candidate group
-    if (current_count > max_count) {
+  // Linear frequency scan - O(n)
+  for (size_t i = 0; i < votes.size(); ++i) {
+    if (votes[i] == current_candidate) {
+      ++current_count;
+    } else {
+      if (current_count > max_count) {
         max_count = current_count;
         winner = current_candidate;
+      }
+      current_candidate = votes[i];
+      current_count = 1;
     }
+  }
 
-    return winner;
+  // Final check for the last candidate group
+  if (current_count > max_count) {
+    max_count = current_count;
+    winner = current_candidate;
+  }
+
+  return winner;
 }
 
 } // namespace dsa

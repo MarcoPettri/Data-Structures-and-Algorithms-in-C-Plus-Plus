@@ -190,7 +190,7 @@ static void test_copy_move_assign() {
   d = {"p", "q"};
   CHECK(d.size() == 2 && d[1] == "q");
   d = d; // self-assign must be harmless (silence -Wself-assign by going through
-         // a reference)
+  // a reference)
   auto &r = d;
   d = r;
   CHECK(d.size() == 2);
@@ -238,12 +238,12 @@ static void test_aliasing() {
   while (v.size() < v.capacity())
     v.push_back("x"); // full again
   const auto cap_before = v.capacity();
-  v.insert(v.begin() + 1, v[0]);    // insert of own element while full
+  v.insert(v.begin() + 1, v[0]); // insert of own element while full
   CHECK(v.capacity() > cap_before); // it really did reallocate
   CHECK(v[0] == A && v[1] == A && v[2] == "x");
 
   while (v.size() < v.capacity())
-    v.push_back("x");               // full again
+    v.push_back("x"); // full again
   v.insert(v.begin(), 2, v.back()); // fill-insert of own element while full
   CHECK(v[0] == "x" && v[1] == "x" && v[2] == A);
 }

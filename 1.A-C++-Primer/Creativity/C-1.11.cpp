@@ -22,27 +22,26 @@
 		 compute GCD(n, m) for two integers n and m.
 */
 
-#include<iostream>
+#include <iostream>
 #include <utility>
 
 int GCD(int, int);
 
 int main() {
 
-	int n{ 80'844 };
-	int m{ 25'320 };
+  int n{80'844};
+  int m{25'320};
 
-	std::cout << "GCD(" << n << ", " << m << ") = "
-		<< GCD(n, m);
+  std::cout << "GCD(" << n << ", " << m << ") = " << GCD(n, m);
 
-	return 0;
+  return 0;
 }
 
 int GCD(int n, int m) {
 
-	while (m) {
-		n %= m;
-		std::swap(n, m);
-	}
-	return n;
+  while (m) {
+    n %= m;
+    std::swap(n, m);
+  }
+  return n;
 }

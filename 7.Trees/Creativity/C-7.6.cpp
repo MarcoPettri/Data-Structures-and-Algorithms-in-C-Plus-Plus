@@ -68,7 +68,7 @@ int failures = 0;
   } while (0)
 /// @endcond
 
-using Tree     = adt::GeneralTree<std::string>;
+using Tree = adt::GeneralTree<std::string>;
 using Position = Tree::Position;
 
 // ─────────────────────────────────────────────────────────────────────────────

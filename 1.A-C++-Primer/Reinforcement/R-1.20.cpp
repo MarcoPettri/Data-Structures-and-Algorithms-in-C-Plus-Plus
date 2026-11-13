@@ -6,23 +6,21 @@
 		 than 2
 */
 
-#include<iostream>
+#include <iostream>
 
 int descom(int);
 
-int main() 
-{
-	std::cout << descom(25) << std::endl;
-	std::cout << descom(152) << std::endl;
-	std::cout << descom(2345) << std::endl;
+int main() {
+  std::cout << descom(25) << std::endl;
+  std::cout << descom(152) << std::endl;
+  std::cout << descom(2345) << std::endl;
 
-
-	return 0;
+  return 0;
 }
-int descom(int x) 
-{
-	int times{ 0 };
+int descom(int x) {
+  int times{0};
 
-	for (; x >= 2; x >>= 1, times++);
-	return --times;
+  for (; x >= 2; x >>= 1, times++)
+    ;
+  return --times;
 }

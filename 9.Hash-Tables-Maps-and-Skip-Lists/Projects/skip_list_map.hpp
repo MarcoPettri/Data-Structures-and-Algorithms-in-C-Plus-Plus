@@ -203,8 +203,8 @@ public:
   /// Removes all entries while retaining the map configuration.
   void clear() noexcept;
   /// Exchanges map contents in constant time.
-  void swap(SkipListMap &other) noexcept(
-      std::is_nothrow_swappable_v<key_compare>);
+  void
+  swap(SkipListMap &other) noexcept(std::is_nothrow_swappable_v<key_compare>);
 
 private:
   struct Node {
@@ -248,9 +248,9 @@ template <typename Key, typename Value, typename KeyCompare>
 [[nodiscard]] bool operator!=(const SkipListMap<Key, Value, KeyCompare> &lhs,
                               const SkipListMap<Key, Value, KeyCompare> &rhs);
 template <typename Key, typename Value, typename KeyCompare>
-void swap(SkipListMap<Key, Value, KeyCompare> &lhs,
-          SkipListMap<Key, Value, KeyCompare> &rhs) noexcept(
-    noexcept(lhs.swap(rhs)));
+void swap(
+    SkipListMap<Key, Value, KeyCompare> &lhs,
+    SkipListMap<Key, Value, KeyCompare> &rhs) noexcept(noexcept(lhs.swap(rhs)));
 
 } // namespace adt
 

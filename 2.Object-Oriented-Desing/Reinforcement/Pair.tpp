@@ -26,7 +26,8 @@ Pair<T1, T2>::Pair(Pair &&other) noexcept(nothrow_move)
 
 template <typename T1, typename T2>
 Pair<T1, T2> &Pair<T1, T2>::operator=(Pair other) noexcept(nothrow_swap) {
-  swap(other); // 'other' is already a copy (lvalue arg) or moved-in (rvalue arg)
+  swap(
+      other); // 'other' is already a copy (lvalue arg) or moved-in (rvalue arg)
   return *this;
 }
 

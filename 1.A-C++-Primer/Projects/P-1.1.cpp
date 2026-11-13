@@ -10,70 +10,60 @@
 
 */
 
-#include<iostream>
-#include<iomanip>
-#include<utility>
-#include<cstdlib>
-#include<ctime>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
+#include <iostream>
+#include <utility>
 
 bool isPrime(int);
 void typos(char[], int);
 
-int main()
-{
-	char string[]{ "I will always use object oriented design" };
-	const int LENGTH{ sizeof string / sizeof(*string) };
+int main() {
+  char string[]{"I will always use object oriented design"};
+  const int LENGTH{sizeof string / sizeof(*string)};
 
-	std::srand(static_cast<unsigned>(std::time(nullptr)));
+  std::srand(static_cast<unsigned>(std::time(nullptr)));
 
-	for (int i{ 1 }; i < 101; i++)
-	{
-		if (i > 60 && isPrime(i) )
-		{	
-			std::cout << std::setw(3) << i << ".  ";
-			typos(string, LENGTH);
-			std::cout << std::endl;
+  for (int i{1}; i < 101; i++) {
+    if (i > 60 && isPrime(i)) {
+      std::cout << std::setw(3) << i << ".  ";
+      typos(string, LENGTH);
+      std::cout << std::endl;
 
-		}
-		else {
-			std::cout << std::setw(3);
-			std::cout << i << ".  " << string << std::endl;
-		}
-	}
-	
-	return 0;
+    } else {
+      std::cout << std::setw(3);
+      std::cout << i << ".  " << string << std::endl;
+    }
+  }
+
+  return 0;
 }
 
-bool isPrime(int number)
-{
-	if ((number % 2 == 0) && (number != 2)) { 
-		return false; 
-	}
-	else if ((number % 3 == 0) && (number != 3)) {
-		return false;
-	}	
-	else if ((number % 5 == 0) && (number != 5)) {
-		return false;
-	}	
-	else if ((number % 7 == 0) && (number != 7)) {
-		return false;
-	}
+bool isPrime(int number) {
+  if ((number % 2 == 0) && (number != 2)) {
+    return false;
+  } else if ((number % 3 == 0) && (number != 3)) {
+    return false;
+  } else if ((number % 5 == 0) && (number != 5)) {
+    return false;
+  } else if ((number % 7 == 0) && (number != 7)) {
+    return false;
+  }
 
-	return true;
-
+  return true;
 }
-void typos(char str[], int length)
-{
-	int index1;
-	int index2;
+void typos(char str[], int length) {
+  int index1;
+  int index2;
 
-	do{
-		index1 = 1 + std::rand() % (length - 2);
-		index2 = 1 + std::rand() % (length - 2);
+  do {
+    index1 = 1 + std::rand() % (length - 2);
+    index2 = 1 + std::rand() % (length - 2);
 
-	} while (str[index1] == ' ' || str[index2] == ' ');
+  } while (str[index1] == ' ' || str[index2] == ' ');
 
-	std::swap(str[index1], str[index2]);
-	std::cout << str;
-	std::swap(str[index1], str[index2]);
+  std::swap(str[index1], str[index2]);
+  std::cout << str;
+  std::swap(str[index1], str[index2]);
 }

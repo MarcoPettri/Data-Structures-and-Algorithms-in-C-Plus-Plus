@@ -203,7 +203,7 @@ private:
           siftUp(i)); // the node moved into slot i may belong higher or lower
   }
 
-  Better better_;           ///< Priority comparator.
+  Better better_; ///< Priority comparator.
   std::vector<Order> heap_; ///< Array-backed binary heap.
   std::unordered_map<OrderId, std::size_t>
       index_; ///< id -> position in @c heap_.

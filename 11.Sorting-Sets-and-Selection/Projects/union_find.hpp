@@ -54,35 +54,35 @@ namespace algo {
  */
 class UnionFind {
 public:
-    using size_type = std::size_t;
+  using size_type = std::size_t;
 
-    /// @brief Creates an empty structure (no elements). O(1).
-    UnionFind() = default;
+  /// @brief Creates an empty structure (no elements). O(1).
+  UnionFind() = default;
 
-    /**
+  /**
      * @brief Creates @p n singleton sets `{0}, {1}, ..., {n-1}`.
      * @param n  Number of elements.
      * @par Complexity O(n).
      */
-    explicit UnionFind(size_type n);
+  explicit UnionFind(size_type n);
 
-    /**
+  /**
      * @brief Adds a new element as a singleton set (the ADT's `makeSet`).
      * @return Id of the new element (equal to the previous `size()`).
      * @par Complexity O(1) amortised.
      */
-    size_type makeSet();
+  size_type makeSet();
 
-    /// @brief Reserves storage for @p n elements.
-    void reserve(size_type n) { link_.reserve(n); }
+  /// @brief Reserves storage for @p n elements.
+  void reserve(size_type n) { link_.reserve(n); }
 
-    /// @brief Removes all elements. O(1)–O(n) depending on the allocator.
-    void clear() noexcept {
-        link_.clear();
-        numSets_ = 0;
-    }
+  /// @brief Removes all elements. O(1)–O(n) depending on the allocator.
+  void clear() noexcept {
+    link_.clear();
+    numSets_ = 0;
+  }
 
-    /**
+  /**
      * @brief Returns the representative (root) of the set containing @p x.
      *
      * Applies full path compression: every node on the path from @p x to the
@@ -92,9 +92,9 @@ public:
      * @throws std::out_of_range if `x >= size()`.
      * @par Complexity O(α(n)) amortised.
      */
-    [[nodiscard]] size_type find(size_type x);
+  [[nodiscard]] size_type find(size_type x);
 
-    /**
+  /**
      * @brief Merges the sets containing @p a and @p b (union by size).
      *
      * The smaller tree is attached under the root of the larger one. On equal
@@ -105,23 +105,23 @@ public:
      * @throws std::out_of_range if either id is `>= size()`.
      * @par Complexity O(α(n)) amortised.
      */
-    bool unite(size_type a, size_type b);
+  bool unite(size_type a, size_type b);
 
-    /**
+  /**
      * @brief Tests whether @p a and @p b belong to the same set.
      * @throws std::out_of_range if either id is `>= size()`.
      * @par Complexity O(α(n)) amortised.
      */
-    [[nodiscard]] bool connected(size_type a, size_type b);
+  [[nodiscard]] bool connected(size_type a, size_type b);
 
-    /**
+  /**
      * @brief Number of elements in the set containing @p x.
      * @throws std::out_of_range if `x >= size()`.
      * @par Complexity O(α(n)) amortised.
      */
-    [[nodiscard]] size_type setSize(size_type x);
+  [[nodiscard]] size_type setSize(size_type x);
 
-    /**
+  /**
      * @brief Number of edges between @p x and its root, **without** compressing.
      *
      * Diagnostic helper (used by the tests to observe both heuristics).
@@ -130,29 +130,29 @@ public:
      * @throws std::out_of_range if `x >= size()`.
      * @par Complexity O(depth of x).
      */
-    [[nodiscard]] size_type depth(size_type x) const;
+  [[nodiscard]] size_type depth(size_type x) const;
 
-    /// @brief Total number of elements. O(1).
-    [[nodiscard]] size_type size() const noexcept { return link_.size(); }
+  /// @brief Total number of elements. O(1).
+  [[nodiscard]] size_type size() const noexcept { return link_.size(); }
 
-    /// @brief Number of disjoint sets. O(1).
-    [[nodiscard]] size_type numSets() const noexcept { return numSets_; }
+  /// @brief Number of disjoint sets. O(1).
+  [[nodiscard]] size_type numSets() const noexcept { return numSets_; }
 
-    /// @brief True if there are no elements. O(1).
-    [[nodiscard]] bool empty() const noexcept { return link_.empty(); }
+  /// @brief True if there are no elements. O(1).
+  [[nodiscard]] bool empty() const noexcept { return link_.empty(); }
 
 private:
-    using link_type = std::ptrdiff_t;
+  using link_type = std::ptrdiff_t;
 
-    /// Throws std::out_of_range if @p x is not a valid id.
-    void check(size_type x) const;
+  /// Throws std::out_of_range if @p x is not a valid id.
+  void check(size_type x) const;
 
-    /// Root lookup with path compression; @p x must be valid.
-    size_type findUnchecked(size_type x) noexcept;
+  /// Root lookup with path compression; @p x must be valid.
+  size_type findUnchecked(size_type x) noexcept;
 
-    /// `link_[i] >= 0`: parent of i.  `link_[i] < 0`: i is a root of a tree of size `-link_[i]`.
-    std::vector<link_type> link_;
-    size_type numSets_ = 0;
+  /// `link_[i] >= 0`: parent of i.  `link_[i] < 0`: i is a root of a tree of size `-link_[i]`.
+  std::vector<link_type> link_;
+  size_type numSets_ = 0;
 };
 
 }  // namespace algo
