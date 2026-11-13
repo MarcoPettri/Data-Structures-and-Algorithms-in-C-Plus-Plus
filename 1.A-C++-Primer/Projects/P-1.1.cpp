@@ -3,9 +3,9 @@
 /* 
 		A common punishment for school children is to write out the same sen-
 		 tence multiple times. Write a C++ stand-alone program that will write
-		 out the following sentence one hundred times: “I will always use object-
-		 oriented design.” Your program should number each of the sentences and
-		 it should “accidentally” make eight different random-looking typos at var-
+		 out the following sentence one hundred times: ï¿½I will always use object-
+		 oriented design.ï¿½ Your program should number each of the sentences and
+		 it should ï¿½accidentallyï¿½ make eight different random-looking typos at var-
 		 ious points in the listing, so that it looks like a human typed it all by hand.
 
 */
