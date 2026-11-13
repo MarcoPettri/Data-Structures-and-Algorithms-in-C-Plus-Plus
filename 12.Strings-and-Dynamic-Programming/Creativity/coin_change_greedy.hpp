@@ -7,12 +7,12 @@
 #ifndef COIN_CHANGE_GREEDY_HPP
 #define COIN_CHANGE_GREEDY_HPP
 
+#include <algorithm>
 #include <cstdint>
+#include <limits>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <limits>
-#include <algorithm>
 
 namespace dsa {
 
@@ -22,10 +22,10 @@ namespace dsa {
  *        quarters (25¢), dimes (10¢), nickels (5¢), and pennies (1¢).
  */
 struct CoinBreakdown {
-    std::uint64_t quarters{0}; ///< Number of quarters (25 cents each).
-    std::uint64_t dimes{0};    ///< Number of dimes (10 cents each).
-    std::uint64_t nickels{0};  ///< Number of nickels (5 cents each).
-    std::uint64_t pennies{0};  ///< Number of pennies (1 cent each).
+  std::uint64_t quarters{0}; ///< Number of quarters (25 cents each).
+  std::uint64_t dimes{0};    ///< Number of dimes (10 cents each).
+  std::uint64_t nickels{0};  ///< Number of nickels (5 cents each).
+  std::uint64_t pennies{0};  ///< Number of pennies (1 cent each).
 
     /**
      * @brief Computes total number of coins in the breakdown.
@@ -36,11 +36,11 @@ struct CoinBreakdown {
      * - **Time Complexity:** $\mathcal{O}(1)$
      * - **Auxiliary Space:** $\mathcal{O}(1)$
      */
-    [[nodiscard]] constexpr std::uint64_t total_coins() const noexcept {
-        return quarters + dimes + nickels + pennies;
-    }
+  [[nodiscard]] constexpr std::uint64_t total_coins() const noexcept {
+    return quarters + dimes + nickels + pennies;
+  }
 
-    /**
+  /**
      * @brief Computes total monetary value in cents.
      * 
      * @return [[nodiscard]] std::uint64_t Total value in cents.
@@ -49,42 +49,38 @@ struct CoinBreakdown {
      * - **Time Complexity:** $\mathcal{O}(1)$
      * - **Auxiliary Space:** $\mathcal{O}(1)$
      */
-    [[nodiscard]] constexpr std::uint64_t total_cents() const noexcept {
-        return quarters * 25 + dimes * 10 + nickels * 5 + pennies;
-    }
+  [[nodiscard]] constexpr std::uint64_t total_cents() const noexcept {
+    return quarters * 25 + dimes * 10 + nickels * 5 + pennies;
+  }
 
-    /**
+  /**
      * @brief Formats coin breakdown into a readable string.
      * 
      * @return [[nodiscard]] std::string Human-readable breakdown.
      */
-    [[nodiscard]] std::string to_string() const {
-        std::ostringstream oss;
-        oss << quarters << " quarter(s), "
-            << dimes << " dime(s), "
-            << nickels << " nickel(s), "
-            << pennies << " penny/pennies "
-            << "(Total coins: " << total_coins()
-            << ", Total value: " << total_cents() << "¢)";
-        return oss.str();
-    }
+  [[nodiscard]] std::string to_string() const {
+    std::ostringstream oss;
+    oss << quarters << " quarter(s), " << dimes << " dime(s), " << nickels
+        << " nickel(s), " << pennies << " penny/pennies "
+        << "(Total coins: " << total_coins()
+        << ", Total value: " << total_cents() << "¢)";
+    return oss.str();
+  }
 
-    /**
+  /**
      * @brief Equality comparison operator.
      */
-    bool operator==(const CoinBreakdown& other) const noexcept {
-        return quarters == other.quarters &&
-               dimes == other.dimes &&
-               nickels == other.nickels &&
-               pennies == other.pennies;
-    }
+  bool operator==(const CoinBreakdown &other) const noexcept {
+    return quarters == other.quarters && dimes == other.dimes &&
+           nickels == other.nickels && pennies == other.pennies;
+  }
 
-    /**
+  /**
      * @brief Inequality comparison operator.
      */
-    bool operator!=(const CoinBreakdown& other) const noexcept {
-        return !(*this == other);
-    }
+  bool operator!=(const CoinBreakdown &other) const noexcept {
+    return !(*this == other);
+  }
 };
 
 /**
@@ -130,7 +126,7 @@ struct CoinBreakdown {
  */
 class GreedyChangeMaker {
 public:
-    /**
+  /**
      * @brief Computes the optimal coin breakdown for a given monetary amount in cents.
      * 
      * @param cents Target non-negative value in cents.
@@ -140,24 +136,25 @@ public:
      * - **Time Complexity:** $\mathcal{O}(1)$ — executed via four integer division/modulo operations.
      * - **Auxiliary Space:** $\mathcal{O}(1)$ — constant storage for the result struct.
      */
-    [[nodiscard]] static constexpr CoinBreakdown make_change(std::uint64_t cents) noexcept {
-        CoinBreakdown result;
+  [[nodiscard]] static constexpr CoinBreakdown
+  make_change(std::uint64_t cents) noexcept {
+    CoinBreakdown result;
 
-        result.quarters = cents / 25;
-        cents %= 25;
+    result.quarters = cents / 25;
+    cents %= 25;
 
-        result.dimes = cents / 10;
-        cents %= 10;
+    result.dimes = cents / 10;
+    cents %= 10;
 
-        result.nickels = cents / 5;
-        cents %= 5;
+    result.nickels = cents / 5;
+    cents %= 5;
 
-        result.pennies = cents;
+    result.pennies = cents;
 
-        return result;
-    }
+    return result;
+  }
 
-    /**
+  /**
      * @brief Computes the minimum number of coins needed to make change for a given value in cents.
      * 
      * @param cents Target non-negative value in cents.
@@ -167,11 +164,12 @@ public:
      * - **Time Complexity:** $\mathcal{O}(1)$
      * - **Auxiliary Space:** $\mathcal{O}(1)$
      */
-    [[nodiscard]] static constexpr std::uint64_t min_coins(std::uint64_t cents) noexcept {
-        return make_change(cents).total_coins();
-    }
+  [[nodiscard]] static constexpr std::uint64_t
+  min_coins(std::uint64_t cents) noexcept {
+    return make_change(cents).total_coins();
+  }
 
-    /**
+  /**
      * @brief Reference Dynamic Programming solver for minimum coin change on arbitrary coin denominations.
      *        Used for rigorous cross-verification against the greedy solution.
      * 
@@ -183,25 +181,26 @@ public:
      * - **Time Complexity:** $\mathcal{O}(k \cdot V)$, where $k$ is the number of denominations and $V$ is cents.
      * - **Auxiliary Space:** $\mathcal{O}(V)$ for the DP memoization array.
      */
-    [[nodiscard]] static std::uint64_t make_change_dp_reference(
-        std::size_t cents,
-        const std::vector<std::size_t>& denominations = {25, 10, 5, 1}) {
-        if (cents == 0) return 0;
+  [[nodiscard]] static std::uint64_t make_change_dp_reference(
+      std::size_t cents,
+      const std::vector<std::size_t> &denominations = {25, 10, 5, 1}) {
+    if (cents == 0)
+      return 0;
 
-        constexpr std::uint64_t INF = std::numeric_limits<std::uint64_t>::max() / 2;
-        std::vector<std::uint64_t> dp(cents + 1, INF);
-        dp[0] = 0;
+    constexpr std::uint64_t INF = std::numeric_limits<std::uint64_t>::max() / 2;
+    std::vector<std::uint64_t> dp(cents + 1, INF);
+    dp[0] = 0;
 
-        for (std::size_t i = 1; i <= cents; ++i) {
-            for (std::size_t coin : denominations) {
-                if (i >= coin) {
-                    dp[i] = std::min(dp[i], dp[i - coin] + 1);
-                }
-            }
+    for (std::size_t i = 1; i <= cents; ++i) {
+      for (std::size_t coin : denominations) {
+        if (i >= coin) {
+          dp[i] = std::min(dp[i], dp[i - coin] + 1);
         }
-
-        return dp[cents];
+      }
     }
+
+    return dp[cents];
+  }
 };
 
 /**
@@ -214,8 +213,9 @@ public:
  * - **Time Complexity:** $\mathcal{O}(1)$
  * - **Auxiliary Space:** $\mathcal{O}(1)$
  */
-[[nodiscard]] inline constexpr CoinBreakdown compute_greedy_change(std::uint64_t cents) noexcept {
-    return GreedyChangeMaker::make_change(cents);
+[[nodiscard]] inline constexpr CoinBreakdown
+compute_greedy_change(std::uint64_t cents) noexcept {
+  return GreedyChangeMaker::make_change(cents);
 }
 
 } // namespace dsa

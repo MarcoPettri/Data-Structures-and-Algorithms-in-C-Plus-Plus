@@ -31,18 +31,18 @@ namespace bio {
  * '|' marks an identical column and ' ' a mismatch or a gap.
  */
 struct Alignment {
-    std::string top;          ///< First sequence with gaps ('-') inserted.
-    std::string bottom;       ///< Second sequence with gaps ('-') inserted.
-    std::string midline;      ///< Match markers.
-    std::size_t matches = 0;  ///< Identical columns (equals the LCS length).
-    std::size_t mismatches = 0;  ///< Columns with two different residues.
-    std::size_t gaps = 0;     ///< Columns containing a gap.
+  std::string top;          ///< First sequence with gaps ('-') inserted.
+  std::string bottom;       ///< Second sequence with gaps ('-') inserted.
+  std::string midline;      ///< Match markers.
+  std::size_t matches = 0;  ///< Identical columns (equals the LCS length).
+  std::size_t mismatches = 0;  ///< Columns with two different residues.
+  std::size_t gaps = 0;     ///< Columns containing a gap.
 
     /// @return Number of alignment columns.
-    [[nodiscard]] std::size_t length() const noexcept { return top.size(); }
+  [[nodiscard]] std::size_t length() const noexcept { return top.size(); }
 
-    /// @return Identical columns divided by alignment length, in [0, 1] (0 if empty).
-    [[nodiscard]] double identity() const noexcept;
+  /// @return Identical columns divided by alignment length, in [0, 1] (0 if empty).
+  [[nodiscard]] double identity() const noexcept;
 };
 
 /**
@@ -59,7 +59,7 @@ struct Alignment {
  * @complexity O(m + n).
  */
 [[nodiscard]] Alignment buildAlignment(std::string_view a, std::string_view b,
-                                       const std::vector<Match>& lcsPairs);
+                                       const std::vector<Match> &lcsPairs);
 
 /**
  * @brief Convenience wrapper: computes the LCS of two strings and aligns them.
@@ -79,7 +79,8 @@ struct Alignment {
  * @param lcsPairs  Matched index pairs (only the first index is used).
  * @return The subsequence of @p a selected by @p lcsPairs.
  */
-[[nodiscard]] std::string lcsString(std::string_view a, const std::vector<Match>& lcsPairs);
+[[nodiscard]] std::string lcsString(std::string_view a,
+                                    const std::vector<Match> &lcsPairs);
 
 /**
  * @brief Writes a BLAST-like block view of an alignment.
@@ -90,7 +91,8 @@ struct Alignment {
  * @param alignment  Alignment to print.
  * @param lineWidth  Columns per block (clamped to at least 1).
  */
-void writeAlignment(std::ostream& os, const Alignment& alignment, std::size_t lineWidth = 80);
+void writeAlignment(std::ostream &os, const Alignment &alignment,
+                    std::size_t lineWidth = 80);
 
 }  // namespace bio
 

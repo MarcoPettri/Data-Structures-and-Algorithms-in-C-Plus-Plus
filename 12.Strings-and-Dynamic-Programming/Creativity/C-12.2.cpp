@@ -67,185 +67,196 @@
     Therefore, the greedy algorithm is guaranteed to be correct and optimal for the US coin system.
 */
 
-#include <iostream>
+#include "coin_change_greedy.hpp"
 #include <cassert>
 #include <chrono>
+#include <iostream>
 #include <random>
 #include <vector>
-#include "coin_change_greedy.hpp"
 
 void test_edge_cases() {
-    std::cout << "[*] Running edge case tests...\n";
+  std::cout << "[*] Running edge case tests...\n";
 
-    // Value 0
-    {
-        auto res = dsa::compute_greedy_change(0);
-        assert(res.total_coins() == 0);
-        assert(res.quarters == 0 && res.dimes == 0 && res.nickels == 0 && res.pennies == 0);
-        assert(res.total_cents() == 0);
-    }
+  // Value 0
+  {
+    auto res = dsa::compute_greedy_change(0);
+    assert(res.total_coins() == 0);
+    assert(res.quarters == 0 && res.dimes == 0 && res.nickels == 0 &&
+           res.pennies == 0);
+    assert(res.total_cents() == 0);
+  }
 
-    // Single cent
-    {
-        auto res = dsa::compute_greedy_change(1);
-        assert(res.quarters == 0 && res.dimes == 0 && res.nickels == 0 && res.pennies == 1);
-        assert(res.total_coins() == 1);
-        assert(res.total_cents() == 1);
-    }
+  // Single cent
+  {
+    auto res = dsa::compute_greedy_change(1);
+    assert(res.quarters == 0 && res.dimes == 0 && res.nickels == 0 &&
+           res.pennies == 1);
+    assert(res.total_coins() == 1);
+    assert(res.total_cents() == 1);
+  }
 
-    // Exact denomination boundaries
-    {
-        auto n5 = dsa::compute_greedy_change(5);
-        assert(n5.nickels == 1 && n5.total_coins() == 1);
+  // Exact denomination boundaries
+  {
+    auto n5 = dsa::compute_greedy_change(5);
+    assert(n5.nickels == 1 && n5.total_coins() == 1);
 
-        auto d10 = dsa::compute_greedy_change(10);
-        assert(d10.dimes == 1 && d10.total_coins() == 1);
+    auto d10 = dsa::compute_greedy_change(10);
+    assert(d10.dimes == 1 && d10.total_coins() == 1);
 
-        auto q25 = dsa::compute_greedy_change(25);
-        assert(q25.quarters == 1 && q25.total_coins() == 1);
-    }
+    auto q25 = dsa::compute_greedy_change(25);
+    assert(q25.quarters == 1 && q25.total_coins() == 1);
+  }
 
-    std::cout << "[+] Edge case tests passed!\n";
+  std::cout << "[+] Edge case tests passed!\n";
 }
 
 void test_typical_values() {
-    std::cout << "[*] Running typical monetary values tests...\n";
+  std::cout << "[*] Running typical monetary values tests...\n";
 
-    // 41 cents: 1 quarter (25), 1 dime (10), 1 nickel (5), 1 penny (1) = 4 coins
-    {
-        auto res = dsa::compute_greedy_change(41);
-        assert(res.quarters == 1);
-        assert(res.dimes == 1);
-        assert(res.nickels == 1);
-        assert(res.pennies == 1);
-        assert(res.total_coins() == 4);
-        assert(res.total_cents() == 41);
-    }
+  // 41 cents: 1 quarter (25), 1 dime (10), 1 nickel (5), 1 penny (1) = 4 coins
+  {
+    auto res = dsa::compute_greedy_change(41);
+    assert(res.quarters == 1);
+    assert(res.dimes == 1);
+    assert(res.nickels == 1);
+    assert(res.pennies == 1);
+    assert(res.total_coins() == 4);
+    assert(res.total_cents() == 41);
+  }
 
-    // 24 cents (maximum non-quarter boundary): 2 dimes (20), 4 pennies (4) = 6 coins
-    {
-        auto res = dsa::compute_greedy_change(24);
-        assert(res.quarters == 0);
-        assert(res.dimes == 2);
-        assert(res.nickels == 0);
-        assert(res.pennies == 4);
-        assert(res.total_coins() == 6);
-        assert(res.total_cents() == 24);
-    }
+  // 24 cents (maximum non-quarter boundary): 2 dimes (20), 4 pennies (4) = 6 coins
+  {
+    auto res = dsa::compute_greedy_change(24);
+    assert(res.quarters == 0);
+    assert(res.dimes == 2);
+    assert(res.nickels == 0);
+    assert(res.pennies == 4);
+    assert(res.total_coins() == 6);
+    assert(res.total_cents() == 24);
+  }
 
-    // 99 cents: 3 quarters (75), 2 dimes (20), 0 nickels (0), 4 pennies (4) = 9 coins
-    {
-        auto res = dsa::compute_greedy_change(99);
-        assert(res.quarters == 3);
-        assert(res.dimes == 2);
-        assert(res.nickels == 0);
-        assert(res.pennies == 4);
-        assert(res.total_coins() == 9);
-        assert(res.total_cents() == 99);
-    }
+  // 99 cents: 3 quarters (75), 2 dimes (20), 0 nickels (0), 4 pennies (4) = 9 coins
+  {
+    auto res = dsa::compute_greedy_change(99);
+    assert(res.quarters == 3);
+    assert(res.dimes == 2);
+    assert(res.nickels == 0);
+    assert(res.pennies == 4);
+    assert(res.total_coins() == 9);
+    assert(res.total_cents() == 99);
+  }
 
-    // 68 cents: 2 quarters (50), 1 dime (10), 1 nickel (5), 3 pennies (3) = 7 coins
-    {
-        auto res = dsa::compute_greedy_change(68);
-        assert(res.quarters == 2);
-        assert(res.dimes == 1);
-        assert(res.nickels == 1);
-        assert(res.pennies == 3);
-        assert(res.total_coins() == 7);
-        assert(res.total_cents() == 68);
-    }
+  // 68 cents: 2 quarters (50), 1 dime (10), 1 nickel (5), 3 pennies (3) = 7 coins
+  {
+    auto res = dsa::compute_greedy_change(68);
+    assert(res.quarters == 2);
+    assert(res.dimes == 1);
+    assert(res.nickels == 1);
+    assert(res.pennies == 3);
+    assert(res.total_coins() == 7);
+    assert(res.total_cents() == 68);
+  }
 
-    std::cout << "[+] Typical monetary values tests passed!\n";
+  std::cout << "[+] Typical monetary values tests passed!\n";
 }
 
 void test_dp_cross_verification() {
-    std::cout << "[*] Running comprehensive DP cross-verification for all cents in [0, 5000]...\n";
+  std::cout << "[*] Running comprehensive DP cross-verification for all cents "
+               "in [0, 5000]...\n";
 
-    constexpr std::size_t MAX_CENTS = 5000;
-    for (std::size_t c = 0; c <= MAX_CENTS; ++c) {
-        const auto greedy_res = dsa::compute_greedy_change(c);
-        const std::uint64_t dp_min = dsa::GreedyChangeMaker::make_change_dp_reference(c);
+  constexpr std::size_t MAX_CENTS = 5000;
+  for (std::size_t c = 0; c <= MAX_CENTS; ++c) {
+    const auto greedy_res = dsa::compute_greedy_change(c);
+    const std::uint64_t dp_min =
+        dsa::GreedyChangeMaker::make_change_dp_reference(c);
 
-        assert(greedy_res.total_cents() == c);
-        assert(greedy_res.total_coins() == dp_min);
-    }
+    assert(greedy_res.total_cents() == c);
+    assert(greedy_res.total_coins() == dp_min);
+  }
 
-    std::cout << "[+] Verified: Greedy matches Dynamic Programming optimal for ALL 5,001 values!\n";
+  std::cout << "[+] Verified: Greedy matches Dynamic Programming optimal for "
+               "ALL 5,001 values!\n";
 }
 
 void test_non_canonical_counterexample() {
-    std::cout << "[*] Demonstrating why canonical proof matters (non-canonical counterexample)...\n";
+  std::cout << "[*] Demonstrating why canonical proof matters (non-canonical "
+               "counterexample)...\n";
 
-    // In a hypothetical system without nickels {25, 10, 1}:
-    // For 30 cents:
-    // Greedy takes: 1 quarter (25) + 5 pennies (1) = 6 coins
-    // Optimal DP takes: 3 dimes (10 + 10 + 10) = 3 coins!
-    const std::vector<std::size_t> non_canonical = {25, 10, 1};
-    const std::uint64_t dp_coins = dsa::GreedyChangeMaker::make_change_dp_reference(30, non_canonical);
-    assert(dp_coins == 3);
+  // In a hypothetical system without nickels {25, 10, 1}:
+  // For 30 cents:
+  // Greedy takes: 1 quarter (25) + 5 pennies (1) = 6 coins
+  // Optimal DP takes: 3 dimes (10 + 10 + 10) = 3 coins!
+  const std::vector<std::size_t> non_canonical = {25, 10, 1};
+  const std::uint64_t dp_coins =
+      dsa::GreedyChangeMaker::make_change_dp_reference(30, non_canonical);
+  assert(dp_coins == 3);
 
-    // Greedy on {25, 10, 1}: 30 / 25 = 1 (rem 5), 5 / 10 = 0 (rem 5), 5 / 1 = 5 -> total 6 coins
-    const std::uint64_t greedy_coins_non_canonical = 1 + 0 + 5;
-    assert(greedy_coins_non_canonical == 6);
-    assert(greedy_coins_non_canonical > dp_coins);
+  // Greedy on {25, 10, 1}: 30 / 25 = 1 (rem 5), 5 / 10 = 0 (rem 5), 5 / 1 = 5 -> total 6 coins
+  const std::uint64_t greedy_coins_non_canonical = 1 + 0 + 5;
+  assert(greedy_coins_non_canonical == 6);
+  assert(greedy_coins_non_canonical > dp_coins);
 
-    std::cout << "    Value: 30¢ with denominations {25, 10, 1}:\n";
-    std::cout << "    - Greedy gives: " << greedy_coins_non_canonical << " coins (1x25¢ + 5x1¢)\n";
-    std::cout << "    - Optimal DP gives: " << dp_coins << " coins (3x10¢)\n";
-    std::cout << "[+] Non-canonical counterexample successfully verified!\n";
+  std::cout << "    Value: 30¢ with denominations {25, 10, 1}:\n";
+  std::cout << "    - Greedy gives: " << greedy_coins_non_canonical
+            << " coins (1x25¢ + 5x1¢)\n";
+  std::cout << "    - Optimal DP gives: " << dp_coins << " coins (3x10¢)\n";
+  std::cout << "[+] Non-canonical counterexample successfully verified!\n";
 }
 
 void test_large_amounts_stress() {
-    std::cout << "[*] Running large amounts and performance stress test (10,000,000 queries)...\n";
+  std::cout << "[*] Running large amounts and performance stress test "
+               "(10,000,000 queries)...\n";
 
-    // 64-bit large monetary value: $12,345,678.99 = 1,234,567,899 cents
-    {
-        constexpr std::uint64_t large_cents = 1'234'567'899ULL;
-        auto res = dsa::compute_greedy_change(large_cents);
-        assert(res.total_cents() == large_cents);
-        assert(res.quarters == large_cents / 25);
-        assert(res.pennies == 4);
-        assert(res.dimes == 2);
-        assert(res.nickels == 0);
-    }
+  // 64-bit large monetary value: $12,345,678.99 = 1,234,567,899 cents
+  {
+    constexpr std::uint64_t large_cents = 1'234'567'899ULL;
+    auto res = dsa::compute_greedy_change(large_cents);
+    assert(res.total_cents() == large_cents);
+    assert(res.quarters == large_cents / 25);
+    assert(res.pennies == 4);
+    assert(res.dimes == 2);
+    assert(res.nickels == 0);
+  }
 
-    constexpr std::size_t NUM_QUERIES = 10'000'000;
-    std::mt19937_64 rng(1337);
-    std::uniform_int_distribution<std::uint64_t> dist(0, 100'000'000'000ULL);
+  constexpr std::size_t NUM_QUERIES = 10'000'000;
+  std::mt19937_64 rng(1337);
+  std::uniform_int_distribution<std::uint64_t> dist(0, 100'000'000'000ULL);
 
-    std::uint64_t checksum = 0;
-    const auto start = std::chrono::high_resolution_clock::now();
+  std::uint64_t checksum = 0;
+  const auto start = std::chrono::high_resolution_clock::now();
 
-    for (std::size_t i = 0; i < NUM_QUERIES; ++i) {
-        const std::uint64_t val = dist(rng);
-        const auto res = dsa::compute_greedy_change(val);
-        checksum += res.total_coins();
-    }
+  for (std::size_t i = 0; i < NUM_QUERIES; ++i) {
+    const std::uint64_t val = dist(rng);
+    const auto res = dsa::compute_greedy_change(val);
+    checksum += res.total_coins();
+  }
 
-    const auto end = std::chrono::high_resolution_clock::now();
-    const std::chrono::duration<double, std::milli> elapsed = end - start;
+  const auto end = std::chrono::high_resolution_clock::now();
+  const std::chrono::duration<double, std::milli> elapsed = end - start;
 
-    std::cout << "[+] Executed " << NUM_QUERIES << " greedy queries in " << elapsed.count() << " ms.\n";
-    std::cout << "[+] Average throughput: " << (static_cast<double>(NUM_QUERIES) / elapsed.count() * 1000.0)
-              << " queries/sec (Checksum: " << checksum << ")\n";
-    std::cout << "[+] Large amounts stress test passed!\n";
+  std::cout << "[+] Executed " << NUM_QUERIES << " greedy queries in "
+            << elapsed.count() << " ms.\n";
+  std::cout << "[+] Average throughput: "
+            << (static_cast<double>(NUM_QUERIES) / elapsed.count() * 1000.0)
+            << " queries/sec (Checksum: " << checksum << ")\n";
+  std::cout << "[+] Large amounts stress test passed!\n";
 }
 
 int main() {
 
-    test_edge_cases();
-    std::cout.put('\n');
-    test_typical_values();
-    std::cout.put('\n');
-    test_dp_cross_verification();
-    std::cout.put('\n');
-    test_non_canonical_counterexample();
-    std::cout.put('\n');
-    test_large_amounts_stress();
+  test_edge_cases();
+  std::cout.put('\n');
+  test_typical_values();
+  std::cout.put('\n');
+  test_dp_cross_verification();
+  std::cout.put('\n');
+  test_non_canonical_counterexample();
+  std::cout.put('\n');
+  test_large_amounts_stress();
 
-    std::cout << "========================================================\n";
-    std::cout << "       All tests and verifications passed!              \n";
-    std::cout << "========================================================\n";
+  std::cout << "========================================================\n";
+  std::cout << "       All tests and verifications passed!              \n";
+  std::cout << "========================================================\n";
 
-    return 0;
+  return 0;
 }

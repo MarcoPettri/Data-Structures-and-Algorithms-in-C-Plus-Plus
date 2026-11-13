@@ -23,9 +23,10 @@ namespace bio {
  * @brief One FASTA entry.
  */
 struct FastaRecord {
-    std::string id;           ///< Text after '>' up to the first whitespace (e.g. "NC_012920.1").
-    std::string description;  ///< Remainder of the header line.
-    std::string sequence;     ///< Upper-case residues with whitespace removed.
+  std::string
+      id; ///< Text after '>' up to the first whitespace (e.g. "NC_012920.1").
+  std::string description; ///< Remainder of the header line.
+  std::string sequence; ///< Upper-case residues with whitespace removed.
 };
 
 /**
@@ -43,7 +44,7 @@ struct FastaRecord {
  * @throws std::runtime_error on sequence data before the first header or on an
  *         invalid character (the message includes the line number).
  */
-[[nodiscard]] std::vector<FastaRecord> readFasta(std::istream& in);
+[[nodiscard]] std::vector<FastaRecord> readFasta(std::istream &in);
 
 /**
  * @brief Parses all records from a file.
@@ -53,8 +54,8 @@ struct FastaRecord {
  *
  * @throws std::runtime_error if the file cannot be opened or is malformed.
  */
-[[nodiscard]] std::vector<FastaRecord> readFastaFile(const std::string& path);
+[[nodiscard]] std::vector<FastaRecord> readFastaFile(const std::string &path);
 
-}  // namespace bio
+} // namespace bio
 
-#endif  // BIO_FASTA_HPP
+#endif // BIO_FASTA_HPP

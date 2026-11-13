@@ -65,7 +65,7 @@ inline constexpr std::size_t kDefaultMaxTableCells = std::size_t{1} << 26;
  * @complexity Time O(m*n); memory O(min(m,n)).
  */
 template <typename SeqA, typename SeqB, typename Eq = std::equal_to<>>
-[[nodiscard]] std::size_t lcsLength(const SeqA& a, const SeqB& b, Eq eq = Eq{});
+[[nodiscard]] std::size_t lcsLength(const SeqA &a, const SeqB &b, Eq eq = Eq{});
 
 /**
  * @brief Computes one LCS and returns it as strictly increasing index pairs.
@@ -84,7 +84,8 @@ template <typename SeqA, typename SeqB, typename Eq = std::equal_to<>>
  * @complexity Time O(m*n); memory O(min(m,n)) plus the O(LCS) output.
  */
 template <typename SeqA, typename SeqB, typename Eq = std::equal_to<>>
-[[nodiscard]] std::vector<Match> lcsMatches(const SeqA& a, const SeqB& b, Eq eq = Eq{});
+[[nodiscard]] std::vector<Match> lcsMatches(const SeqA &a, const SeqB &b,
+                                            Eq eq = Eq{});
 
 /**
  * @brief Computes one LCS with the textbook full-table dynamic program.
@@ -105,8 +106,9 @@ template <typename SeqA, typename SeqB, typename Eq = std::equal_to<>>
  * @complexity Time O(m*n); memory O(m*n).
  */
 template <typename SeqA, typename SeqB, typename Eq = std::equal_to<>>
-[[nodiscard]] std::vector<Match> lcsMatchesTable(const SeqA& a, const SeqB& b, Eq eq = Eq{},
-                                                 std::size_t maxCells = kDefaultMaxTableCells);
+[[nodiscard]] std::vector<Match>
+lcsMatchesTable(const SeqA &a, const SeqB &b, Eq eq = Eq{},
+                std::size_t maxCells = kDefaultMaxTableCells);
 
 }  // namespace bio
 
