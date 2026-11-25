@@ -16,6 +16,9 @@ comments.md
 prompt.md
 AGENTS.md
 .vscode/
+!13.Graph-Algorithms\Projects\P13.1-13.4\CMakeLists.txt
+!14.Memory-Management-and-B-Trees\Projects\P-14.1\CMakeLists.txt
+!14.Memory-Management-and-B-Trees\Projects\P-14.4\CMakeLists.txt
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 ### CMake ###
